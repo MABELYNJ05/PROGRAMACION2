@@ -268,26 +268,26 @@ public class ClsComision {
         int buscador=0;
         
         for (int i = 0; i < 3; i++) {
-            for (int j = 1; j < 4; j++) {  
-                buscador=Integer.parseInt(comisiones[i][j]);                
-                switch(mesopc){
-                case 1 -> {       
-                    if(cantidad==buscador){
-                        comisiones[i][j]=String.valueOf(newcantidad);
-                    }
-                    }
-                case 2 -> {
-                    if(cantidad==buscador){
-                        comisiones[i][j]=String.valueOf(newcantidad);
-                    }
-                    }
-                case 3 -> {
-                    if(cantidad==buscador){
-                        comisiones[i][j]=String.valueOf(newcantidad);
-                    }
-                    }
+              
+            buscador=Integer.parseInt(comisiones[i][mesopc]);                
+            switch(mesopc){
+            case 1 -> {       
+                if(cantidad==buscador){
+                    comisiones[i][mesopc]=String.valueOf(newcantidad);
+                }
+                }
+            case 2 -> {
+                if(cantidad==buscador){
+                    comisiones[i][mesopc]=String.valueOf(newcantidad);
+                }
+                }
+            case 3 -> {
+                if(cantidad==buscador){
+                    comisiones[i][mesopc]=String.valueOf(newcantidad);
+                }
                 }
             }
+            
         }
              
         System.out.println("\n\n\n");
