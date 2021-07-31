@@ -53,9 +53,8 @@ public class ClsComision {
       
     
     public static void MostrarDatos(){
-        System.out.println("NOMBRE\t\tFEBRERO\t\tENERO\t\tMARZO\t\tTOTAL\t\tPROMEDIO");
+        System.out.println("NOMBRE\t\tENERO\t\tFEBRERO\t\tMARZO\t\tTOTAL\t\tPROMEDIO");
         for(int x =0; x<comisiones.length;x++ ){
-//            System.out.print("|");
             System.out.print(comisiones[x][NOMBRE]+"\t\tQ."+comisiones[x][ENERO]+".00\t\tQ."+comisiones[x][FEBRERO]+".00\t\tQ."+comisiones[x][MARZO]+".00\t\tQ."+comisiones[x][TOTAL]+".00\t\tQ."+comisiones[x][PROMEDIO]);
             System.out.print("\n");         
         }
@@ -174,25 +173,24 @@ public class ClsComision {
         String mes="";
         try{
             
-            int opcion=Integer.parseInt(opn);            
+            int opcion=Integer.parseInt(opn);  
+            menor=Integer.parseInt(comisiones[0][opcion]);
+
             for (int i = 1; i < 3; i++) {
                 if(opcion==1){ 
                     mes="Enero";
-                    menor=Integer.parseInt(comisiones[0][opcion]);
                     num=Integer.parseInt(comisiones[i][opcion]);
                     if(num<menor){
                         menor=num;
                     }
                 }else if(opcion==2){
                     mes="Febrero";
-                    menor=Integer.parseInt(comisiones[0][opcion]);
                     num=Integer.parseInt(comisiones[i][opcion]);
                     if(num<menor){
                         menor=num;
                     }
                 }else if(opcion==3){
                     mes="Marzo";
-                    menor=Integer.parseInt(comisiones[0][opcion]);
                     num=Integer.parseInt(comisiones[i][opcion]);
                     if(num<menor){
                         menor=num;
@@ -222,13 +220,11 @@ public class ClsComision {
                 buscador=Integer.parseInt(comisiones[i][j]);
                 if(cantidad==buscador){
                     Persona=comisiones[i][0];
-                    if(j==1){
-                        mes="ENERO";
-                    }else if(j==2){
-                        mes="FEBRERO";
-                    }else{
-                        mes="MARZO";
-                    }                    
+                    mes = switch (j) {
+                        case 1 -> "ENERO";
+                        case 2 -> "FEBRERO";
+                        default -> "MARZO";
+                    };
                 }                                                
             }                        
         }                
@@ -236,11 +232,13 @@ public class ClsComision {
         System.out.println(""+Persona+" vendió Q."+cantidad+".00 "+"en el mes de "+mes);
         
         UltimoMsj();
+        UltimoMsj();
     }
     
     public static void EditarNom(){        
         
         System.out.println("Ingrese el nombre de la persona que desea editar: ");
+        String nom=entrada.nextLine();
         String nombre=entrada.nextLine();
         System.out.println("Ingrese el nuevo Nombre: ");
         String newNom=entrada.nextLine();
@@ -273,21 +271,21 @@ public class ClsComision {
             for (int j = 1; j < 4; j++) {  
                 buscador=Integer.parseInt(comisiones[i][j]);                
                 switch(mesopc){
-                case 1:       
+                case 1 -> {       
                     if(cantidad==buscador){
                         comisiones[i][j]=String.valueOf(newcantidad);
                     }
-                    break;
-                case 2:
+                    }
+                case 2 -> {
                     if(cantidad==buscador){
                         comisiones[i][j]=String.valueOf(newcantidad);
                     }
-                    break;
-                case 3:
+                    }
+                case 3 -> {
                     if(cantidad==buscador){
                         comisiones[i][j]=String.valueOf(newcantidad);
                     }
-                    break;
+                    }
                 }
             }
         }
