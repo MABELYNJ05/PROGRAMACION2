@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.FXMLnominaController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="466.0" prefWidth="222.0" style="-fx-background-color: #DAA520;">
+         <children>
+            <Label text="INGRESO DE DATOS">
+               <font>
+                  <Font name="Agency FB Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Label>
+            <VBox prefHeight="271.0" prefWidth="202.0">
+               <children>
+                  <Label text="Nombre">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textNombre">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Venta Enero">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="textEnero" onKeyTyped="#eventKeyNum">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Venta Febrero">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="textFebrero" onKeyTyped="#eventKeyNum">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label text="Venta de Marzo">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="textMarzo" onKeyTyped="#eventKeyNum">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button fx:id="buttonIngresoDt" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ButtonIngresoDatos" text="INGRESAR">
+                     <font>
+                        <Font name="Arial Black" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="30.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" prefHeight="466.0" prefWidth="448.0" style="-fx-background-color: #000000;">
+         <children>
+            <Label text="CONSULTAS" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Agency FB Bold" size="31.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="404.0" prefWidth="448.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="171.0" prefWidth="184.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #454545;">
+                           <children>
+                              <ComboBox fx:id="ComboboxVentas" onAction="#ComboBoxVentas" prefHeight="25.0" prefWidth="140.0" promptText="VENTAS">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <Label fx:id="labelVentas" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="textMes" editable="false" onKeyTyped="#eventKeyNum">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Button fx:id="buttonVentas" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ButtonVentas" text="ACEPTAR">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #454545;">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label prefHeight="19.0" prefWidth="121.0" text="¿Qué cantidad desea " textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets left="5.0" right="5.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label text="consultar?" textFill="WHITE" />
+                              <TextField fx:id="textCantidadBus" onKeyTyped="#eventKeyNum">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="30.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Button fx:id="buttonCantidadBus" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ButtonCantidadBuscar" text="ACEPTAR">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="388.0" prefWidth="265.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="233.0" prefWidth="235.0" style="-fx-border-color: #454545;">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <ComboBox fx:id="comboboxMod" onAction="#ComboboxMod" prefWidth="150.0" promptText="Modificaciones">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <Label fx:id="labelmod1" prefHeight="21.0" prefWidth="190.0" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="textmod1" editable="false" onKeyTyped="#eventKeyNum">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="labelmod2" prefHeight="17.0" prefWidth="189.0" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="textmod2" editable="false" onKeyTyped="#eventKeyNum">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Button fx:id="buttonModificaciones" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#ButtonModificar" text="ACEPTAR">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Arial Black" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                        <TextField fx:id="textRespuesta" alignment="CENTER" editable="false" prefHeight="117.0" prefWidth="225.0" promptText="RESPUESTA DE CONSULTA">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="9.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</HBox>

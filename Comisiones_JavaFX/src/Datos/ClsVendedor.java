@@ -63,10 +63,9 @@ public class ClsVendedor {
     }
     
     
-    public int escribir(mdVendedor vend) {
+    public void escribir(mdVendedor vend) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        int rows = 0;
         
         try {
             conn = ConexionMYSQL.getConnection();                        
@@ -79,8 +78,7 @@ public class ClsVendedor {
             stmt.setDouble(6, vend.getPromedio());
 
             System.out.println("ejecutando query:" + SQL_INSERT);
-            rows = stmt.executeUpdate();
-            System.out.println("Registros afectados:" + rows);                                                             
+                                                                       
             
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -90,24 +88,21 @@ public class ClsVendedor {
             ConexionMYSQL.close(conn);
         }
         
-        return rows;
         
     }
     
-    public void modNOM(String nom, int id ){
+    public void modNOM(mdVendedor datos){
         Connection conn = null;
         PreparedStatement stmt = null;
-        int rows = 0;
 
         try {
             conn = ConexionMYSQL.getConnection();                        
             stmt = conn.prepareStatement(SQL_UPDATENom);
-            stmt.setString(1, nom);            
-            stmt.setInt(2, id);            
+            stmt.setString(1, datos.getNombre());            
+            stmt.setInt(2, datos.getId());            
 
             System.out.println("ejecutando query:" + SQL_UPDATENom);
-            rows = stmt.executeUpdate();
-            System.out.println("Registros afectados:" + rows);                                                             
+                                                                       
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -155,7 +150,7 @@ public class ClsVendedor {
         }
     }
     
-    public void buscar(int cant){
+    public List<String> buscar(double cant){
         
         Connection conn=null;
         PreparedStatement stmt1=null;
@@ -165,7 +160,8 @@ public class ClsVendedor {
         ResultSet rs2=null;
         ResultSet rs3=null;
         mdVendedor vende=null;       
-        List<mdVendedor> vendedor = new ArrayList<mdVendedor>();
+        List<String> list = new ArrayList<String>();
+        
         
         
            
@@ -174,9 +170,9 @@ public class ClsVendedor {
             stmt1=conn.prepareStatement("SELECT nombre, enero from tb_comisiones WHERE enero=?");
             stmt2=conn.prepareStatement("SELECT nombre, febrero from tb_comisiones WHERE febrero=?");
             stmt3=conn.prepareStatement("SELECT nombre, marzo from tb_comisiones WHERE marzo=?");
-            stmt1.setInt(1,cant);
-            stmt2.setInt(1,cant);
-            stmt3.setInt(1,cant);
+            stmt1.setDouble(1,cant);
+            stmt2.setDouble(1,cant);
+            stmt3.setDouble(1,cant);
             rs1=stmt1.executeQuery();
             rs2=stmt2.executeQuery();
             rs3=stmt3.executeQuery();
@@ -185,19 +181,19 @@ public class ClsVendedor {
             while(rs1.next()){
                 String nombre=rs1.getString(1);
                 double enero=rs1.getDouble(2);
-                System.out.println(nombre+" vendió Q."+enero+" en el mes de enero");
+                list.add(" vendió Q."+enero+" en el mes de enero");
                                                
             }           
             while(rs2.next()){
                 String nombre=rs2.getString(1);
                 double febrero=rs2.getDouble(2);
-                System.out.println(nombre+" vendió Q."+febrero+" en el mes de febrero");
+                list.add(" vendió Q."+febrero+" en el mes de enero");
                                                
             }
             while(rs3.next()){
                 String nombre=rs3.getString(1);
                 double marzo=rs3.getDouble(2);
-                System.out.println(nombre+" vendió Q."+marzo+" en el mes de marzo");
+                list.add(" vendió Q."+marzo+" en el mes de enero");
                                                
             }
         } catch (SQLException ex) {
@@ -212,6 +208,7 @@ public class ClsVendedor {
             ConexionMYSQL.close(conn);
         }
 
+     return list;
      
     }
 

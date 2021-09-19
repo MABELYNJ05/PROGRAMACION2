@@ -76,7 +76,7 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="407.0" prefWidth="318.0">
                <children>
-                  <ComboBox fx:id="comboboxDB" prefHeight="25.0" prefWidth="165.0" promptText="Seleccione una opcion" visibleRowCount="5">
+                  <ComboBox fx:id="comboboxDB" onAction="#comboboxLogin" prefHeight="25.0" prefWidth="165.0" promptText="Seleccione una opcion" visibleRowCount="5">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -86,7 +86,7 @@
                         <Insets left="15.0" right="15.0" top="15.0" />
                      </VBox.margin>
                      <children>
-                        <Label text="Username" textFill="WHITE">
+                        <Label fx:id="label1" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="20.0" />
                            </font>
@@ -99,7 +99,7 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label text="Password" textFill="WHITE">
+                        <Label fx:id="label2" textFill="WHITE">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

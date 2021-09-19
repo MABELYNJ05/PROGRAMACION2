@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Comisiones_JavaFX.jnlp">
+  <information>
+    <title>Comisiones_JavaFX</title>
+    <vendor>mjber</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Comisiones_JavaFX.jar" size="4680440" download="eager" />
+    <jar href="lib\javafx-swt.jar" size="37110" download="eager" />
+    <jar href="lib\javafx.base.jar" size="745601" download="eager" />
+    <jar href="lib\javafx.controls.jar" size="2544873" download="eager" />
+    <jar href="lib\javafx.fxml.jar" size="129482" download="eager" />
+    <jar href="lib\javafx.graphics.jar" size="4250921" download="eager" />
+    <jar href="lib\javafx.media.jar" size="275923" download="eager" />
+    <jar href="lib\javafx.swing.jar" size="88801" download="eager" />
+    <jar href="lib\javafx.web.jar" size="719680" download="eager" />
+    <jar href="lib\mysql-connector-java-8.0.26.jar" size="2462364" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="800" height="600" main-class="comisiones_javafx.Comisiones_JavaFX"  name="Comisiones_JavaFX" />
+  <update check="always"/>
+</jnlp>

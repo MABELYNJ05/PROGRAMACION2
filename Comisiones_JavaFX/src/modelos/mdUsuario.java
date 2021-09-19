@@ -6,6 +6,7 @@ public class mdUsuario {
     private int id;
     private String username;
     private String contraseña;
+    private String clave;
 
     @Override
     public String toString() {
@@ -53,6 +54,14 @@ public class mdUsuario {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
     
 }

@@ -18,9 +18,9 @@ import modelos.*;
 public class ClsUsuario {
     
     private static final String SQL_SELECT="SELECT * FROM bd_nominacomisiones.tb_usuario";
-    private static final String SQL_VALIDACION="select * from tb_usuario where binary username=? and contraseña=(aes_encrypt(?,username));";   
+    private static final String SQL_VALIDACION="select * from tb_usuario where binary username=? and contraseña=(aes_encrypt(?,?));";   
     private static final String SQL_UPDATE="UPDATE tb_usuario SET username=?, contraseña=(aes_encrypt(?,?)) where id=?";
-    private static final String SQL_DELETE="delete from bd_nominacomisiones.tb_usuario where id=?";
+    private static final String SQL_DELETE="Delete from tb_usuario where id=?";
     private static final String SQL_INSERT="insert into tb_usuario (username, contraseña) values (?,aes_encrypt(?,?));";            
     
     public List<mdUsuario> listar(){
@@ -73,6 +73,7 @@ public class ClsUsuario {
             stmt=conn.prepareStatement(SQL_VALIDACION);
             stmt.setString(1, datos.getUsername());
             stmt.setString(2, datos.getContraseña());
+            stmt.setString(3, datos.getUsername());
             rs=stmt.executeQuery();
 
                         
@@ -92,21 +93,19 @@ public class ClsUsuario {
         
     }
     
-    public int escribir(mdUsuario usuario) {
+    public void escribir(mdUsuario usu) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        int rows = 0;
         
         try {
             conn = ConexionMYSQL.getConnection();                        
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, usuario.getUsername());
-            stmt.setString(2, usuario.getContraseña());   
-            stmt.setString(3, usuario.getUsername());
+            stmt.setString(1, usu.getUsername());
+            stmt.setString(2, usu.getContraseña());   
+            stmt.setString(3, usu.getClave());
 
             System.out.println("ejecutando query:" + SQL_INSERT);
-            rows = stmt.executeUpdate();
-            System.out.println("Registros afectados:" + rows);                                                             
+                                                                        
             
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -115,9 +114,7 @@ public class ClsUsuario {
             ConexionMYSQL.close(stmt);            
             ConexionMYSQL.close(conn);
         }
-        
-        return rows;
-        
+                        
     }
     
     public void modificar(mdUsuario datos ){
@@ -134,8 +131,7 @@ public class ClsUsuario {
             stmt.setInt(4, datos.getId());
 
             System.out.println("ejecutando query:" + SQL_UPDATE);
-            rows = stmt.executeUpdate();
-            System.out.println("Registros afectados:" + rows);                                                             
+                                                                    
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -149,20 +145,19 @@ public class ClsUsuario {
     }
     
     
-    public int borrar(mdUsuario datos) {
+    public int borrarDato(int id) {
         Connection conn = null;
         PreparedStatement stmt = null;
-        int rows = 0;
+        int rows=0;
 
         try {
             conn = ConexionMYSQL.getConnection();                        
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, datos.getId());            
+            stmt.setInt(1, id);            
 
             System.out.println("ejecutando query:" + SQL_DELETE);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
-            
             //Reordenar-restablecer la clave principal de incremento automático
             stmt.execute("ALTER TABLE bd_nominacomisiones.tb_usuario DROP id;");
             stmt.execute("ALTER TABLE bd_nominacomisiones.tb_usuario AUTO_INCREMENT = 1;");
@@ -177,8 +172,6 @@ public class ClsUsuario {
         }
 
         return rows;
-
-
     }
     
 }

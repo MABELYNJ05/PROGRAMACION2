@@ -3,6 +3,7 @@ package Nomina;
 
 import Datos.ClsUsuario;
 import Datos.ClsVendedor;
+import java.util.ArrayList;
 import java.util.List;
 import modelos.mdUsuario;
 import modelos.mdVendedor;
@@ -15,12 +16,8 @@ public class ClsOperaciones {
         this.datos = new ClsVendedor(); //poner * en el import datos.*
     }
     
-    public void agregarDatos(mdVendedor vend) {
-       
-       datos.escribir(vend);
-    }
     
-    public void numMaxMes(int Mes){
+    public String numMaxMes(int Mes){
         double num=0;
         double mayor=0;
         String mes="";
@@ -52,14 +49,41 @@ public class ClsOperaciones {
             }                                
         }            
 
-        System.out.println("LA VENTA MAXIMA DEL MES DE "+mes+" es de Q."+mayor);
-
-
-
+        String valor="LA VENTA MAXIMA DEL MES DE "+mes+" es de Q."+mayor;
+       
+        return valor;
 
     }
 
-    public void numMinMes(int Mes){
+    public ArrayList<String> buscar(Double cantidad){
+        
+        List<mdVendedor> lista = datos.listar();
+        ArrayList<String> lst = new ArrayList<String>();
+        String mes="";
+        String persona="";
+        for(mdVendedor e: lista){
+            double enero=e.getEnero();
+            double febrero=e.getFebrero();
+            double marzo=e.getMarzo();
+            if(cantidad==enero){
+                mes="Enero";
+                persona=e.getNombre();
+                lst.add(persona+" vendió Q."+cantidad+" "+"en el mes de "+mes);
+            }else if(cantidad==febrero){
+                mes="Febrero";
+                persona=e.getNombre();
+                lst.add(persona+" vendió Q."+cantidad+" "+"en el mes de "+mes);
+            }else if(cantidad==marzo){
+                mes="Marzo";
+                persona=e.getNombre();
+                lst.add(persona+" vendió Q."+cantidad+" "+"en el mes de "+mes);
+            }
+            
+        }  
+        return lst;
+    }
+        
+    public String numMinMes(int Mes){
         double num=0;
         double menor=0;
         String mes="";
@@ -102,13 +126,13 @@ public class ClsOperaciones {
 
         }            
 
-        System.out.println("LA VENTA MINIMA DEL MES DE "+mes+" es de Q."+menor);
+        String res="LA VENTA MINIMA DEL MES DE "+mes+" es de Q."+menor;
 
-
+        return res;
         
     }
 
-    public void numMaxTotal(){
+    public String numMaxTotal(){
         double mayor=0;
         double num=0;
         double enero=0;
@@ -139,7 +163,9 @@ public class ClsOperaciones {
 
         }       
 
-        System.out.println("LA VENTA MAXIMA EN LOS TRES MESES FUE DE: Q."+mayor+".00\n\n");                
+        String res="LA VENTA MAXIMA FUE DE: Q."+mayor;                
+        
+        return res;
         
     }        
     
@@ -154,22 +180,8 @@ public class ClsOperaciones {
             System.out.println("Error de acceso a datos");            
         }
         
-    }
-
-    public void buscar(int cant) {
-        String resultado = null;
-                    
-        datos.buscar(cant);
-        
-    }
-    
-    
-    public void editarNom(String nombre,int ID){
-        
-        datos.modNOM(nombre, ID);
-        System.out.println("POR FAVOR ACTUALIZAR DATOS");
-        
-    }
+    }    
+           
     
     public void editCantidad(int Id,double newcantidad, int mesopc){
        
@@ -178,22 +190,7 @@ public class ClsOperaciones {
         
     }
 
-    public void eliminar(int id) {
-        
-        datos.borrar(id);
-
-    }
     
-    public void Validacion(mdUsuario usuario){
-        
-        ClsUsuario usu=new ClsUsuario();
-        
-        if(usu.validacion(usuario)){
-            
-        }else{
-            
-        }
-        
-    }
+    
     
 }
