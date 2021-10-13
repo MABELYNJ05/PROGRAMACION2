@@ -13,6 +13,7 @@ import java.util.List;
 
 public class OperacionesUsu {
     
+    private String SQL_INSERTUSU="insert into tb_usuariospokemon (username, contraseña, correo) values(?,aes_encrypt(?,?),?);";
     private String SQL_SELECTNOMPokemon="select * from pokemon where name=?;";
     private String SQL_SELECTColor="select * from pokemon where color=?;";
     private String SQL_SELECTGeneration="select * from pokemon where generation_id=?;";
@@ -287,4 +288,27 @@ public class OperacionesUsu {
                         
     }
     
+    public void insertarUsu(mdUsuario usu) {
+        Connection conn = null;
+        PreparedStatement stmt = null;              
+        
+        try {
+            conn = ConexionMYSQL.getConnection();                        
+            stmt = conn.prepareStatement(SQL_INSERTUSU);
+            stmt.setString(1, usu.getUsername());
+            stmt.setString(2, usu.getPassword());           
+            stmt.setString(3, usu.getPassword());           
+            stmt.setString(4, usu.getCorreo());           
+            
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        finally{
+            ConexionMYSQL.close(stmt);            
+            ConexionMYSQL.close(conn);
+        }
+                        
+    }
 }

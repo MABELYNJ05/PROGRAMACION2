@@ -4,6 +4,10 @@ package ClsPrincipal;
 import ClsModelos.mdPokemon;
 import ClsModelos.mdUsuario;
 import ClsOperaciones.OperacionesUsu;
+import Conexion.ConexionMYSQL;
+import com.google.protobuf.Message;
+import com.mysql.cj.Session;
+import com.sun.jdi.connect.Transport;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,10 +22,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Pokedex extends javax.swing.JFrame {
 
@@ -132,6 +148,7 @@ public class Pokedex extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("POKEDEX");
 
         ImagenPokemon.setName("ImagenPokemon"); // NOI18N
 
@@ -248,9 +265,14 @@ public class Pokedex extends javax.swing.JFrame {
         buttonRegistrarUsu.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
         buttonRegistrarUsu.setText("Registrar Usuario");
         buttonRegistrarUsu.setName("buttonRegistrarUsu"); // NOI18N
+        buttonRegistrarUsu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRegistrarUsuActionPerformed(evt);
+            }
+        });
 
         buttonReporte.setFont(new java.awt.Font("Bookman Old Style", 1, 14)); // NOI18N
-        buttonReporte.setText("Generar Reporte");
+        buttonReporte.setText("Reporte PDF");
         buttonReporte.setName("buttonReporte"); // NOI18N
         buttonReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,7 +352,7 @@ public class Pokedex extends javax.swing.JFrame {
                                             .addComponent(buttonRegistrarUsu, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                                             .addComponent(buttonReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(36, 36, 36)))))
-                        .addGap(0, 9, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,7 +413,32 @@ public class Pokedex extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReporteActionPerformed
-        // TODO add your handling code here:
+        try {
+            Connection con = ConexionMYSQL.getConnection();
+            
+            JasperReport reporte = null;
+            //Ruta del archivo jasper en reportes
+            String path = "src\\main\\java\\Reportes\\pokedexreport.jasper";             
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            /*
+            3 parametros
+            reporte -> Object JasperReport
+            null -> no necesitamos enviar parametros al reporte
+            con -> conexión a la base de datos.
+            */
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null,con);
+            //Creamos la vista del reporte
+            JasperViewer view = new JasperViewer(jprint, false);
+            //Cierre para el reporte, y no se quede la tarea corriendo.
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            //Lo hacemos visible
+            view.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Pokedex.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Pokedex.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_buttonReporteActionPerformed
 
     private void buttonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAnteriorActionPerformed
@@ -758,6 +805,78 @@ public class Pokedex extends javax.swing.JFrame {
         dispose();        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void buttonRegistrarUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegistrarUsuActionPerformed
+        if(inicioSesion==false){
+            mdUsuario usu=new mdUsuario();
+            OperacionesUsu op= new OperacionesUsu();
+            usu.setUsername(JOptionPane.showInputDialog(null,new JLabel("Ingrese nombre de usuario"),"REGISTRO",JOptionPane.INFORMATION_MESSAGE));
+            if(usu.getUsername()!=null){
+                usu.setPassword(JOptionPane.showInputDialog(null,new JLabel("Ingrese contraseña"),"REGISTRO",JOptionPane.INFORMATION_MESSAGE));
+                if(usu.getPassword()!=null){
+                    usu.setCorreo(JOptionPane.showInputDialog(null,new JLabel("Ingrese correo"),"REGISTRO",JOptionPane.INFORMATION_MESSAGE));
+                    if(usu.getCorreo()!=null){
+                        op.insertarUsu(usu);
+                        JOptionPane.showMessageDialog(rootPane, "Usuario Registrado", "Mensaje", JOptionPane.ERROR_MESSAGE);                                    
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Operacion Candelada", "Mensaje", JOptionPane.ERROR_MESSAGE);                                    
+
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Operacion Candelada", "Mensaje", JOptionPane.ERROR_MESSAGE);                                    
+
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Operacion Candelada", "Mensaje", JOptionPane.ERROR_MESSAGE);                                                    
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Tiene sesión iniciada", "Mensaje", JOptionPane.ERROR_MESSAGE);                                    
+        }
+    }//GEN-LAST:event_buttonRegistrarUsuActionPerformed
+
+    public void enviarCorreo(mdUsuario user) throws AddressException, MessagingException{
+        
+        try {
+            Properties props = new Properties();
+            props.setProperty("mail.smtp.host", "smtp.gmail.com");
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            props.setProperty("mail.smtp.port", "587");
+            props.setProperty("mail.smtp.auth", "true");
+            
+            Session session = Session.getDefaultInstance(props);
+            String correoRemitente = "sistemadeventasgt@gmail.com";
+            String passwordRemitente = "prueba123";
+            
+            String correoReceptor = user.getCorreo();
+            String asunto = "REGISTRO ÉXITOSO.";
+            String mensaje = "Hola";
+            
+            
+            
+            MimeMessage message = new MimeMessage((MimeMessage) session);
+            message.setFrom(new InternetAddress(correoRemitente));
+            
+            
+            //Receptor normal
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correoReceptor));
+            message.setSubject(asunto);
+            message.setText(mensaje);
+            
+            try ( //Lo enviamos
+                Transport t = session.getTransport("smtp")) {
+                t.connect(correoRemitente,passwordRemitente);
+                t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+                System.out.println("Correo electronico enviado al : " + user.getCorreo());
+            }
+            
+        } catch (AddressException ex) {
+            ex.printStackTrace(System.out);
+        } catch (MessagingException ex) {
+            ex.printStackTrace(System.out);
+        }
+       
+    }
+    
     public void mostrar(){
         
         matriz=new String[listPokemon.size()][23];
