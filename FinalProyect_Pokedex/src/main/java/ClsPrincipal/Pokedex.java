@@ -44,12 +44,13 @@ public class Pokedex extends javax.swing.JFrame {
     String matriz[][]; 
     List<mdPokemon> listPokemon = new ArrayList<mdPokemon>();
     boolean inicioSesion=false;
-    boolean inicioFav=true;
+    boolean inicioFav=false;
     String usuarioActual="";
     String idPokemonUsu="";
     BufferedImage buffer1=null;
     Image imagen1=null;
     int contador=0;          
+    int contadorPok=0;
     
     Statement st;
     ResultSet rs;
@@ -132,7 +133,6 @@ public class Pokedex extends javax.swing.JFrame {
         tablaResult = new javax.swing.JTable();
         labelNombre = new javax.swing.JLabel();
         textUsuario = new javax.swing.JTextField();
-        textContraseña = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         buttonIngresar = new javax.swing.JButton();
@@ -146,6 +146,7 @@ public class Pokedex extends javax.swing.JFrame {
         buttonReporte = new javax.swing.JButton();
         comboboxFiltros = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        textContraseña = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("POKEDEX");
@@ -200,9 +201,6 @@ public class Pokedex extends javax.swing.JFrame {
 
         textUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         textUsuario.setName("textUsuario"); // NOI18N
-
-        textContraseña.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        textContraseña.setName("textContraseña"); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel2.setText("Usuario");
@@ -322,8 +320,8 @@ public class Pokedex extends javax.swing.JFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                                    .addComponent(textUsuario))
+                                    .addComponent(textUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                    .addComponent(textContraseña))
                                 .addGap(18, 18, 18)
                                 .addComponent(buttonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -369,9 +367,9 @@ public class Pokedex extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(textUsuario)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
-                                    .addComponent(textContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(textContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(buttonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -443,52 +441,61 @@ public class Pokedex extends javax.swing.JFrame {
 
     private void buttonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAnteriorActionPerformed
         
-        contador=contador-1;
+        if(inicioSesion==true){
+            contador=contador-1;
         
-        if(contador <=0){
-            contador = 1;
-        }
-        
-        dibujaElPokemonQueEstaEnLaPosicion(contador-1);
-        String cuerito = "Select * from pokemon where id="+(contador);
-        
-        
-        try {
-            rs = st.executeQuery(cuerito);
-            if (rs.next()){
-                labelNombre.setText(rs.getString(2));
-            } else {
-                labelNombre.setText("No esta en el pokedex");
+            if(contador <=0){
+                contador = 1;
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-            System.out.println("Clavo con sql");
+
+            dibujaElPokemonQueEstaEnLaPosicion(contador-1);
+            String cuerito = "Select * from pokemon where id="+(contador);
+
+
+            try {
+                rs = st.executeQuery(cuerito);
+                if (rs.next()){
+                    labelNombre.setText(rs.getString(2));
+                } else {
+                    labelNombre.setText("No esta en el pokedex");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+                System.out.println("Clavo con sql");
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Aun no inicia sesion", "Mensaje", JOptionPane.ERROR_MESSAGE);                                   
         }
         
         
     }//GEN-LAST:event_buttonAnteriorActionPerformed
 
     private void buttonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSiguienteActionPerformed
-        dibujaElPokemonQueEstaEnLaPosicion(contador);
+
+        if(inicioSesion==true){
+            dibujaElPokemonQueEstaEnLaPosicion(contador);
         
-        String cuerito = "Select * from pokemon where id="+(contador+1);
-        
-        
-        try {
-            rs = st.executeQuery(cuerito);
-            if (rs.next()){
-                labelNombre.setText(rs.getString(2));
-            } else {
-                labelNombre.setText("No esta en el pokedex");
+            String cuerito = "Select * from pokemon where id="+(contador+1);
+
+
+            try {
+                rs = st.executeQuery(cuerito);
+                if (rs.next()){
+                    labelNombre.setText(rs.getString(2));
+                } else {
+                    labelNombre.setText("No esta en el pokedex");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+                System.out.println("Clavo con sql");
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
-            System.out.println("Clavo con sql");
-        }
-        
-        contador++;
-        if (contador >=649){
-            contador = 649;
+
+            contador++;
+            if (contador >=649){
+                contador = 649;
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Aun no inicia sesion", "Mensaje", JOptionPane.ERROR_MESSAGE);                        
         }
     }//GEN-LAST:event_buttonSiguienteActionPerformed
 
@@ -497,8 +504,11 @@ public class Pokedex extends javax.swing.JFrame {
         mdUsuario usu=new mdUsuario();
         OperacionesUsu opUsu= new OperacionesUsu();           
         
+        char[] arrayC = textContraseña.getPassword();
+        String pass = new String(arrayC);
+        
         usu.setUsername(textUsuario.getText());
-        usu.setPassword(textContraseña.getText());
+        usu.setPassword(pass);
         inicioSesion=opUsu.validacion(usu);
         
         if(inicioSesion==true){
@@ -517,7 +527,7 @@ public class Pokedex extends javax.swing.JFrame {
         
         if(inicioSesion==true){
             
-            inicioFav=true;
+            
             
             try {
                 mdPokemon pok=new mdPokemon();
@@ -527,6 +537,27 @@ public class Pokedex extends javax.swing.JFrame {
                 listPokemon=usu.listar(pok);                                
                 mostrar();
                 textBusPokemon.setText("");
+                inicioFav=true;        
+                
+                contadorPok=Integer.valueOf(idPokemonUsu);
+                dibujaElPokemonQueEstaEnLaPosicion(contadorPok-1);
+        
+                String cuerito = "Select * from pokemon where id="+(idPokemonUsu);
+
+
+                try {
+                    rs = st.executeQuery(cuerito);
+                    if (rs.next()){
+                        labelNombre.setText(rs.getString(2));
+                    } else {
+                        labelNombre.setText("No esta en el pokedex");
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace(System.out);
+                    System.out.println("Clavo con sql");
+                }
+
+                
                                 
             } catch (SQLException ex) {
                 ex.printStackTrace(System.out);
@@ -657,50 +688,53 @@ public class Pokedex extends javax.swing.JFrame {
         OperacionesUsu usu=new OperacionesUsu();
         boolean revisionfav=false;
         boolean revisionNfav=false;
-        
-        //verifico que ya haya presionado el boton de buscar pokemon
-        if(inicioFav==true){
-            
-            mdusu.setUsername(usuarioActual);
-            mdusu.setPokemon(idPokemonUsu);        
-            revisionfav=usu.validacionFAV(mdusu,1); //variable para ver si el pokemon ya está ingresado en mi tabla favoritos     
-            revisionNfav=usu.validacionFAV(mdusu,2);//variable para ver si el pokemon ya está ingresado en mi tabla no favoritos                       
+        if(inicioSesion==true){
+            if(inicioFav==true){
+
+                mdusu.setUsername(usuarioActual);
+                mdusu.setPokemon(idPokemonUsu);        
+                revisionfav=usu.validacionFAV(mdusu,1); //variable para ver si el pokemon ya está ingresado en mi tabla favoritos     
+                revisionNfav=usu.validacionFAV(mdusu,2);//variable para ver si el pokemon ya está ingresado en mi tabla no favoritos                       
                                     
-            if(revisionfav==true){
-                //cuando el pokemon está en mi tabla FAVORITOS
-                JOptionPane.showMessageDialog(rootPane, "Este pokemon ya está registrado en @Favoritos@", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                                    
-            }else if(revisionNfav==true){
-                //cuando el pokemon está en mi tabla NO FAVORITOS                
-                //variable para saber que boton seleccionó de mi cuadro de dialogo
-                int opcion= JOptionPane.showConfirmDialog(rootPane, "Este pokemon ya está registrado en @No Favoritos@\n¿Deseas cambiar a @Favoritos@?", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                if(opcion==0){//cuando presiona SI
+                if(revisionfav==true){
+                    //cuando el pokemon está en mi tabla FAVORITOS
+                    JOptionPane.showMessageDialog(rootPane, "Este pokemon ya está registrado en @Favoritos@", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                                    
+                }else if(revisionNfav==true){
+                    //cuando el pokemon está en mi tabla NO FAVORITOS                
+                    //variable para saber que boton seleccionó de mi cuadro de dialogo
+                    int opcion= JOptionPane.showConfirmDialog(rootPane, "Este pokemon ya está registrado en @No Favoritos@\n¿Deseas cambiar a @Favoritos@?", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    if(opcion==0){//cuando presiona SI
+                        usu=new OperacionesUsu();
+                        mdusu=new mdUsuario();
+                        mdusu.setUsername(usuarioActual);
+                        mdusu.setPokemon(idPokemonUsu);
+                        usu.insertarFav(mdusu,1); 
+                        usu.insertarFav(mdusu, 4);
+                        JOptionPane.showMessageDialog(rootPane, "Pokemon se añadió a favoritos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                            
+                    }else if(opcion==1){//cuando presiona NO
+                        JOptionPane.showMessageDialog(rootPane, "Entendido, cancelamos operación", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                                    
+                    }else{//cuando presiona CANCELAR
+
+                    }  
+
+                }else if((revisionfav==false)&&(revisionNfav==false)){
                     usu=new OperacionesUsu();
                     mdusu=new mdUsuario();
                     mdusu.setUsername(usuarioActual);
                     mdusu.setPokemon(idPokemonUsu);
-                    usu.insertarFav(mdusu,1); 
-                    usu.insertarFav(mdusu, 4);
-                    JOptionPane.showMessageDialog(rootPane, "Pokemon se añadió a favoritos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                            
-                }else if(opcion==1){//cuando presiona NO
-                    JOptionPane.showMessageDialog(rootPane, "Entendido, cancelamos operación", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                                    
-                }else{//cuando presiona CANCELAR
-                    
-                }  
-                
-            }else if((revisionfav==false)&&(revisionNfav==false)){
-                usu=new OperacionesUsu();
-                mdusu=new mdUsuario();
-                mdusu.setUsername(usuarioActual);
-                mdusu.setPokemon(idPokemonUsu);
-                usu.insertarFav(mdusu,1);
-                JOptionPane.showMessageDialog(rootPane, "Pokemon se añadió a favoritos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                    
+                    usu.insertarFav(mdusu,1);
+                    JOptionPane.showMessageDialog(rootPane, "Pokemon se añadió a favoritos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                    
+                }
+            
+            
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Aun no ha seleccionado un Pokemon", "Mensaje", JOptionPane.ERROR_MESSAGE);                        
             }
             
-            
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Aun no inicia sesion", "Mensaje", JOptionPane.ERROR_MESSAGE);                        
-
+            JOptionPane.showMessageDialog(rootPane, "Aun no a iniciado sesion", "Mensaje", JOptionPane.ERROR_MESSAGE);                                    
         }
+        
         
         
         
@@ -714,47 +748,51 @@ public class Pokedex extends javax.swing.JFrame {
         boolean revisionNfav=false;
         
         //verifico que ya haya presionado el boton de buscar pokemon
-        if(inicioFav==true){
+        if(inicioSesion==true){
+            if(inicioFav==true){
             
-            mdusu.setUsername(usuarioActual);
-            mdusu.setPokemon(idPokemonUsu);        
-            revisionfav=usu.validacionFAV(mdusu,1); //variable para ver si el pokemon ya está ingresado en mi tabla favoritos     
-            revisionNfav=usu.validacionFAV(mdusu,2);//variable para ver si el pokemon ya está ingresado en mi tabla no favoritos                       
-                                    
-            if(revisionNfav==true){
-                //cuando el pokemon está en mi tabla FAVORITOS
-                JOptionPane.showMessageDialog(rootPane, "Este pokemon ya está registrado en @No Favoritos@", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                                    
-            }else if(revisionfav==true){
-                //cuando el pokemon está en mi tabla NO FAVORITOS                
-                //variable para saber que boton seleccionó de mi cuadro de dialogo
-                int opcion= JOptionPane.showConfirmDialog(rootPane, "Este pokemon ya está registrado en @Favoritos@\n¿Deseas cambiar a @No Favoritos@?", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                if(opcion==0){//cuando presiona SI
+                mdusu.setUsername(usuarioActual);
+                mdusu.setPokemon(idPokemonUsu);        
+                revisionfav=usu.validacionFAV(mdusu,1); //variable para ver si el pokemon ya está ingresado en mi tabla favoritos     
+                revisionNfav=usu.validacionFAV(mdusu,2);//variable para ver si el pokemon ya está ingresado en mi tabla no favoritos                       
+
+                if(revisionNfav==true){
+                    //cuando el pokemon está en mi tabla FAVORITOS
+                    JOptionPane.showMessageDialog(rootPane, "Este pokemon ya está registrado en @No Favoritos@", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                                    
+                }else if(revisionfav==true){
+                    //cuando el pokemon está en mi tabla NO FAVORITOS                
+                    //variable para saber que boton seleccionó de mi cuadro de dialogo
+                    int opcion= JOptionPane.showConfirmDialog(rootPane, "Este pokemon ya está registrado en @Favoritos@\n¿Deseas cambiar a @No Favoritos@?", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    if(opcion==0){//cuando presiona SI
+                        usu=new OperacionesUsu();
+                        mdusu=new mdUsuario();
+                        mdusu.setUsername(usuarioActual);
+                        mdusu.setPokemon(idPokemonUsu);
+                        usu.insertarFav(mdusu,2);
+                        usu.insertarFav(mdusu, 3);
+                        JOptionPane.showMessageDialog(rootPane, "Pokemon se añadió a  No Favoritos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                            
+                    }else if(opcion==1){//cuando presiona NO
+                        JOptionPane.showMessageDialog(rootPane, "Entendido, cancelamos operación", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                                    
+                    }else{//cuando presiona CANCELAR
+
+                    }  
+
+                }else if((revisionfav==false)&&(revisionNfav==false)){
                     usu=new OperacionesUsu();
                     mdusu=new mdUsuario();
                     mdusu.setUsername(usuarioActual);
                     mdusu.setPokemon(idPokemonUsu);
                     usu.insertarFav(mdusu,2);
-                    usu.insertarFav(mdusu, 3);
-                    JOptionPane.showMessageDialog(rootPane, "Pokemon se añadió a  No Favoritos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                            
-                }else if(opcion==1){//cuando presiona NO
-                    JOptionPane.showMessageDialog(rootPane, "Entendido, cancelamos operación", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                                    
-                }else{//cuando presiona CANCELAR
-                    
-                }  
-                
-            }else if((revisionfav==false)&&(revisionNfav==false)){
-                usu=new OperacionesUsu();
-                mdusu=new mdUsuario();
-                mdusu.setUsername(usuarioActual);
-                mdusu.setPokemon(idPokemonUsu);
-                usu.insertarFav(mdusu,2);
-                JOptionPane.showMessageDialog(rootPane, "Pokemon se añadió a No Favoritos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                    
-            }
+                    JOptionPane.showMessageDialog(rootPane, "Pokemon se añadió a No Favoritos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);                                    
+                }
             
             
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Aun no ha seleccionado un Pokemon", "Mensaje", JOptionPane.ERROR_MESSAGE);                        
+            }    
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Aun no inicia sesion", "Mensaje", JOptionPane.ERROR_MESSAGE);                        
-        }                              
+            JOptionPane.showMessageDialog(rootPane, "Aun no inicia sesion", "Mensaje", JOptionPane.ERROR_MESSAGE);                                   
+        }                          
         
     }//GEN-LAST:event_buttonNoMeGustaActionPerformed
 
@@ -836,44 +874,44 @@ public class Pokedex extends javax.swing.JFrame {
 
     public void enviarCorreo(mdUsuario user) throws AddressException, MessagingException{
         
-        try {
-            Properties props = new Properties();
-            props.setProperty("mail.smtp.host", "smtp.gmail.com");
-            props.setProperty("mail.smtp.starttls.enable", "true");
-            props.setProperty("mail.smtp.port", "587");
-            props.setProperty("mail.smtp.auth", "true");
-            
-            Session session = Session.getDefaultInstance(props);
-            String correoRemitente = "sistemadeventasgt@gmail.com";
-            String passwordRemitente = "prueba123";
-            
-            String correoReceptor = user.getCorreo();
-            String asunto = "REGISTRO ÉXITOSO.";
-            String mensaje = "Hola";
-            
-            
-            
-            MimeMessage message = new MimeMessage((MimeMessage) session);
-            message.setFrom(new InternetAddress(correoRemitente));
-            
-            
-            //Receptor normal
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correoReceptor));
-            message.setSubject(asunto);
-            message.setText(mensaje);
-            
-            try ( //Lo enviamos
-                Transport t = session.getTransport("smtp")) {
-                t.connect(correoRemitente,passwordRemitente);
-                t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-                System.out.println("Correo electronico enviado al : " + user.getCorreo());
-            }
-            
-        } catch (AddressException ex) {
-            ex.printStackTrace(System.out);
-        } catch (MessagingException ex) {
-            ex.printStackTrace(System.out);
-        }
+//        try {
+//            Properties props = new Properties();
+//            props.setProperty("mail.smtp.host", "smtp.gmail.com");
+//            props.setProperty("mail.smtp.starttls.enable", "true");
+//            props.setProperty("mail.smtp.port", "587");
+//            props.setProperty("mail.smtp.auth", "true");
+//            
+//            Session session = Session.getDefaultInstance(props);
+//            String correoRemitente = user.getCorreo();
+//            String passwordRemitente = "mabe1417";
+//            
+//            String correoReceptor = user.getCorreo();
+//            String asunto = "REGISTRO ÉXITOSO.";
+//            String mensaje = "Hola";
+//            
+//            
+//            
+//            MimeMessage message = new MimeMessage((MimeMessage) session);
+//            message.setFrom(new InternetAddress(correoRemitente));
+//            
+//            
+//            //Receptor normal
+//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correoReceptor));
+//            message.setSubject(asunto);
+//            message.setText(mensaje);
+//            
+//            try ( //Lo enviamos
+//                Transport t = session.getTransport("smtp")) {
+//                t.connect(correoRemitente,passwordRemitente);
+//                t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+//                System.out.println("Correo electronico enviado al : " + user.getCorreo());
+//            }
+//            
+//        } catch (AddressException ex) {
+//            ex.printStackTrace(System.out);
+//        } catch (MessagingException ex) {
+//            ex.printStackTrace(System.out);
+//        }
        
     }
     
@@ -947,7 +985,7 @@ public class Pokedex extends javax.swing.JFrame {
     private javax.swing.JLabel labelNombre;
     private javax.swing.JTable tablaResult;
     private javax.swing.JTextField textBusPokemon;
-    private javax.swing.JTextField textContraseña;
+    private javax.swing.JPasswordField textContraseña;
     private javax.swing.JTextField textUsuario;
     // End of variables declaration//GEN-END:variables
 }
