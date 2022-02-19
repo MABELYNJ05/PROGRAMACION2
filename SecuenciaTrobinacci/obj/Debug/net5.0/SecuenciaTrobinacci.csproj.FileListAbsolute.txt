@@ -1,0 +1,16 @@
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\bin\Debug\net5.0\SecuenciaTrobinacci.exe
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\bin\Debug\net5.0\SecuenciaTrobinacci.deps.json
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\bin\Debug\net5.0\SecuenciaTrobinacci.runtimeconfig.json
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\bin\Debug\net5.0\SecuenciaTrobinacci.runtimeconfig.dev.json
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\bin\Debug\net5.0\SecuenciaTrobinacci.dll
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\bin\Debug\net5.0\ref\SecuenciaTrobinacci.dll
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\bin\Debug\net5.0\SecuenciaTrobinacci.pdb
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\obj\Debug\net5.0\SecuenciaTrobinacci.csproj.AssemblyReference.cache
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\obj\Debug\net5.0\SecuenciaTrobinacci.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\obj\Debug\net5.0\SecuenciaTrobinacci.AssemblyInfoInputs.cache
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\obj\Debug\net5.0\SecuenciaTrobinacci.AssemblyInfo.cs
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\obj\Debug\net5.0\SecuenciaTrobinacci.csproj.CoreCompileInputs.cache
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\obj\Debug\net5.0\SecuenciaTrobinacci.dll
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\obj\Debug\net5.0\ref\SecuenciaTrobinacci.dll
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\obj\Debug\net5.0\SecuenciaTrobinacci.pdb
+C:\Users\mjber\Documents\VII SEMESTRE\PROGRAMACION III\SecuenciaTrobinacci\obj\Debug\net5.0\SecuenciaTrobinacci.genruntimeconfig.cache
