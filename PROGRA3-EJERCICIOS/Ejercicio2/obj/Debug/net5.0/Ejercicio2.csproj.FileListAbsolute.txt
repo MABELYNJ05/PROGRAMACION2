@@ -1,0 +1,15 @@
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\bin\Debug\net5.0\Ejercicio2.exe
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\bin\Debug\net5.0\Ejercicio2.deps.json
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\bin\Debug\net5.0\Ejercicio2.runtimeconfig.json
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\bin\Debug\net5.0\Ejercicio2.runtimeconfig.dev.json
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\bin\Debug\net5.0\Ejercicio2.dll
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\bin\Debug\net5.0\ref\Ejercicio2.dll
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\bin\Debug\net5.0\Ejercicio2.pdb
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\obj\Debug\net5.0\Ejercicio2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\obj\Debug\net5.0\Ejercicio2.AssemblyInfoInputs.cache
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\obj\Debug\net5.0\Ejercicio2.AssemblyInfo.cs
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\obj\Debug\net5.0\Ejercicio2.csproj.CoreCompileInputs.cache
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\obj\Debug\net5.0\Ejercicio2.dll
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\obj\Debug\net5.0\ref\Ejercicio2.dll
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\obj\Debug\net5.0\Ejercicio2.pdb
+C:\Users\mjber\Documents\GitHub\PROGRAMACION2\Ejercicio2\obj\Debug\net5.0\Ejercicio2.genruntimeconfig.cache
